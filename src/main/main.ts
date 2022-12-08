@@ -16,6 +16,7 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import onCpu from './si/cpu';
 import onGeneral from './si/general';
+import onBattery from './si/battery';
 
 class AppUpdater {
   constructor() {
@@ -29,6 +30,7 @@ let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('general', onGeneral);
 ipcMain.on('cpu', onCpu);
+ipcMain.on('battery', onBattery);
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { ICpu } from './si/cpu';
+// import { ICpu, IBattery } from './si/types';
 
-export type Channels = 'general' | 'cpu';
-export type ChannelsArgs = ICpu;
+export type Channels = 'general' | 'cpu' | 'battery';
+// export type ChannelsArgs = ICpu | IBattery;
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
@@ -10,8 +10,8 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send(channel, args);
     },
 
-    on(channel: Channels, func: (args: ICpu) => void) {
-      const subscription = (_event: IpcRendererEvent, args: ChannelsArgs) =>
+    on(channel: Channels, func: (args: unknown) => void) {
+      const subscription = (_event: IpcRendererEvent, args: unknown[]) =>
         func(args);
       ipcRenderer.on(channel, subscription);
 

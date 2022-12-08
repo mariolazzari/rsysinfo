@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 // Redux
 import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
 import {
@@ -8,9 +7,9 @@ import {
   setError,
   selectCpu,
 } from 'renderer/components/Cpu/reducer';
+import { CpuArgs } from 'main/si/types';
 // Mui
 import Typegraphy from '@mui/material/Typography';
-import { IData, ICpu } from 'main/si/types';
 
 const Cpu = () => {
   // Redux
@@ -20,12 +19,12 @@ const Cpu = () => {
   useEffect(() => {
     dispatch(getCpu());
 
+    // subcribe cpu event
     window.electron.ipcRenderer.on('cpu', (e) => {
-      const res = e as IData<ICpu>;
-      if (res.error) {
-        dispatch(setError(res.error));
+      if (typeof e === 'string') {
+        dispatch(setError(e));
       } else {
-        dispatch(onCpu(res.data));
+        dispatch(onCpu(e as CpuArgs));
       }
     });
   }, [dispatch]);
@@ -34,10 +33,6 @@ const Cpu = () => {
     <>
       <Typegraphy>{cpu?.brand}</Typegraphy>
       <Typegraphy>{cpu?.family}</Typegraphy>
-
-      <Link to="/">
-        <button type="button">Home</button>
-      </Link>
     </>
   );
 };
