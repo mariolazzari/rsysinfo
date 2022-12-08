@@ -1,17 +1,18 @@
-import { IpcMainEvent } from 'electron';
 import si from 'systeminformation';
-
-export interface ICpu {
-  cpu: si.Systeminformation.CpuData;
-  temperatures: si.Systeminformation.CpuTemperatureData;
-}
+import { IpcMainEvent } from 'electron';
 
 const onCpu = async (e: IpcMainEvent) => {
-  const cpu = await si.cpu();
+  let data;
+  let error = '';
 
-  const temps = await si.cpuTemperature();
-
-  e.reply('cpu', { cpu, temps });
+  try {
+    const res = await Promise.all([si.cpu(), si.cpuTemperature()]);
+    data = { cpu: res[0], temperatures: res[1] };
+  } catch (ex) {
+    error = ex instanceof Error ? ex.message : 'Error reading cpu info';
+  } finally {
+    e.reply('cpu', { data, error });
+  }
 };
 
 export default onCpu;
