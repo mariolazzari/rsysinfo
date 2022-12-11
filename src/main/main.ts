@@ -28,6 +28,7 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+// event subscription
 ipcMain.on('general', onGeneral);
 ipcMain.on('cpu', onCpu);
 ipcMain.on('battery', onBattery);

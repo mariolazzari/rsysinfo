@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BatteryArgs } from 'main/si/types';
 import { RootState } from 'renderer/redux/store';
 
+const { sendMessage } = window.api.ipcRenderer;
+
 // initial state
 interface BatteryState {
   data: BatteryArgs | null;
@@ -24,13 +26,13 @@ const batterySlice = createSlice({
     getBattery: (state) => {
       state.error = '';
       state.loading = true;
-      window.electron.ipcRenderer.sendMessage('battery', []);
+      sendMessage('battery', []);
     },
     onBattery: (state, action: PayloadAction<BatteryArgs>) => {
       state.data = action.payload;
       state.loading = false;
     },
-    setError: (state, action: PayloadAction<string>) => {
+    onError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
       state.data = null;
@@ -46,7 +48,7 @@ export const selectBattery = (state: RootState) => ({
 });
 
 // actions
-export const { getBattery, onBattery, setError } = batterySlice.actions;
+export const { getBattery, onBattery, onError } = batterySlice.actions;
 
 // reducer
 export default batterySlice.reducer;

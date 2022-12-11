@@ -1,26 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'renderer/redux/store';
+import { GeneralArgs } from 'main/si/types';
+
+const { sendMessage } = window.api.ipcRenderer;
 
 interface GeneralState {
-  test: number;
+  data: GeneralArgs | null;
+  loading: boolean;
+  error: string;
 }
 
 const initialState: GeneralState = {
-  test: 11,
+  data: null,
+  loading: false,
+  error: '',
 };
 
 const generalSlice = createSlice({
   name: 'general',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.test += 1;
+    getData: (state) => {
+      state.loading = true;
+      state.error = '';
+      sendMessage('general', []);
+    },
+    onData: (state, action: PayloadAction<GeneralArgs>) => {
+      state.data = action.payload;
+      state.error = '';
+      state.loading = false;
+    },
+    onError: (state, acton: PayloadAction<string>) => {
+      state.error = acton.payload;
+      state.loading = false;
     },
   },
 });
 
-export const selectTest = (state: RootState) => state.general.test;
+export const selectTime = (state: RootState) => state.general.data?.time;
+export const selectVersion = (state: RootState) => state.general.data?.version;
 
-export const { increment } = generalSlice.actions;
+export const { getData, onData, onError } = generalSlice.actions;
 
 export default generalSlice.reducer;

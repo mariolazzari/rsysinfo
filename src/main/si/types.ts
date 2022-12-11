@@ -1,6 +1,6 @@
 import si from 'systeminformation';
 
-export interface IGeneral {
+export interface GeneralArgs {
   version: si.Systeminformation.VersionData;
   time: si.Systeminformation.TimeData;
 }

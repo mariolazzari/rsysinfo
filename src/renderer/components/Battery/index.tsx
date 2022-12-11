@@ -9,7 +9,7 @@ import BatteryIcon from '@mui/icons-material/Battery80';
 // Redux
 import { BatteryArgs } from 'main/si/types';
 import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
-import { getBattery, onBattery, setError, selectBattery } from './reducer';
+import { getBattery, onBattery, onError, selectBattery } from './reducer';
 
 const Battery = () => {
   // Redux
@@ -40,9 +40,9 @@ const Battery = () => {
     dispatch(getBattery());
 
     // subcribe cpu event
-    window.electron.ipcRenderer.on('battery', (e) => {
+    window.api.ipcRenderer.on('battery', (e: string | BatteryArgs) => {
       if (typeof e === 'string') {
-        dispatch(setError(e));
+        dispatch(onError(e));
       } else {
         dispatch(onBattery(e as BatteryArgs));
       }
@@ -69,6 +69,11 @@ const Battery = () => {
       <Box sx={styles.item}>
         <Typography variant="h6">Manufactuer</Typography>
         <Typography variant="h6">{data?.manufacturer}</Typography>
+      </Box>
+
+      <Box sx={styles.item}>
+        <Typography variant="h6">Charging?</Typography>
+        <Typography variant="h6">{data?.isCharging ? 'Yes' : 'No'}</Typography>
       </Box>
 
       <Typography variant="h6" color="error">

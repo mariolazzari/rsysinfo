@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICpu } from 'main/si/types';
+import { CpuArgs } from 'main/si/types';
 import { RootState } from 'renderer/redux/store';
+
+const { sendMessage } = window.api.ipcRenderer;
 
 // initial state
 interface CpuState {
-  data?: ICpu;
+  data: CpuArgs | null;
   loading: boolean;
   error: string;
 }
 
 // initial state
 const initialState: CpuState = {
-  data: undefined,
+  data: null,
   loading: false,
   error: '',
 };
@@ -24,16 +26,16 @@ const cpuSlice = createSlice({
     getCpu: (state) => {
       state.error = '';
       state.loading = true;
-      window.electron.ipcRenderer.sendMessage('cpu', []);
+      sendMessage('cpu', []);
     },
-    onCpu: (state, action: PayloadAction<ICpu | undefined>) => {
+    onCpu: (state, action: PayloadAction<CpuArgs>) => {
       state.data = action.payload;
       state.loading = false;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
-      state.data = undefined;
+      state.data = null;
     },
   },
 });
