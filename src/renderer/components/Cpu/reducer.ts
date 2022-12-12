@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CpuArgs } from 'main/si/types';
 import { RootState } from 'renderer/redux/store';
-
-const { sendMessage } = window.api.ipcRenderer;
+import { sendMessage } from 'renderer/utils/ipc';
 
 // initial state
 interface CpuState {

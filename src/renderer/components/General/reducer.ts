@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'renderer/redux/store';
 import { GeneralArgs } from 'main/si/types';
-
-const { sendMessage } = window.api.ipcRenderer;
+import { sendMessage } from 'renderer/utils/ipc';
 
 interface GeneralState {
   data: GeneralArgs | null;

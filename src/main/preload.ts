@@ -1,10 +1,8 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-// import { ICpu, IBattery } from './si/types';
 
 export type Channels = 'general' | 'cpu' | 'battery';
-// export type ChannelsArgs = ICpu | IBattery;
 
-contextBridge.exposeInMainWorld('api', {
+contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     sendMessage(channel: Channels, args?: unknown[]) {
       ipcRenderer.send(channel, args);
