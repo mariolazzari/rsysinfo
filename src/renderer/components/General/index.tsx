@@ -1,4 +1,4 @@
-import { IGeneral } from 'main/si/types';
+import { GeneralArgs } from 'main/si/types';
 import { useEffect } from 'react';
 // Redux
 import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 // components
 import Time from './Time';
 
-const { on } = window.api.ipcRenderer;
+const { on } = window.electron.ipcRenderer;
 
 const General = () => {
   const version = useAppSelector(selectVersion);
@@ -24,11 +24,11 @@ const General = () => {
       dispatch(getData());
     }, 1000);
 
-    on('general', (e: string | IGeneral) => {
+    on('general', (e) => {
       if (typeof e === 'string') {
         dispatch(onError(e));
       } else {
-        const data = e as IGeneral;
+        const data = e as GeneralArgs;
         dispatch(onData(data));
       }
     });
