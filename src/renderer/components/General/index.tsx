@@ -1,22 +1,17 @@
 import { GeneralArgs } from 'main/si/types';
 import { useEffect } from 'react';
 // Redux
-import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
-import {
-  getData,
-  onData,
-  onError,
-  selectVersion,
-} from 'renderer/components/General/reducer';
+import { useAppDispatch } from 'renderer/redux/hooks';
+import { getData, onData, onError } from 'renderer/components/General/reducer';
 // Mui
-import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+// utils
+import { on } from 'renderer/utils/ipc';
 // components
+import Versions from './Versions';
 import Time from './Time';
 
-const { on } = window.electron.ipcRenderer;
-
 const General = () => {
-  const version = useAppSelector(selectVersion);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,10 +34,10 @@ const General = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Typography> Version: {version?.node} </Typography>
+    <Stack spacing={2}>
+      <Versions />
       <Time />
-    </>
+    </Stack>
   );
 };
 
