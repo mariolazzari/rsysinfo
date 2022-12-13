@@ -5,6 +5,14 @@ export interface GeneralArgs {
   time: si.Systeminformation.TimeData;
 }
 
+export interface SystemArgs {
+  system: si.Systeminformation.SystemData;
+  uuid: si.Systeminformation.UuidData;
+  bios: si.Systeminformation.BiosData;
+  baseboard: si.Systeminformation.BaseboardData;
+  chassis: si.Systeminformation.ChassisData;
+}
+
 export type CpuArgs = {
   cpu: si.Systeminformation.CpuData;
   temperatures: si.Systeminformation.CpuTemperatureData;

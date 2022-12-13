@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { on } from 'renderer/utils/ipc';
 // Mui
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -40,7 +41,7 @@ const Battery = () => {
     dispatch(getBattery());
 
     // subcribe cpu event
-    window.api.ipcRenderer.on('battery', (e: string | BatteryArgs) => {
+    on('battery', (e) => {
       if (typeof e === 'string') {
         dispatch(onError(e));
       } else {

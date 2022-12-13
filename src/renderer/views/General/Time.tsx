@@ -1,12 +1,14 @@
 // Redux
 import { useAppSelector } from 'renderer/redux/hooks';
-import { selectTime } from 'renderer/components/General/reducer';
+import { selectTime } from 'renderer/views/General/reducer';
 // Mui
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 // Mui icons
 import TimeIcon from '@mui/icons-material/HourglassFull';
+// component
+import PaperBox from 'renderer/components/PaperBox';
 // utils
 import { humanDuration } from '../../utils/dates';
 
@@ -16,12 +18,9 @@ const Time = () => {
 
   // styles
   const styles = {
-    paper: {
-      padding: 2,
-    },
     icon: {
-      fontSize: 80,
-      marginY: 3,
+      fontSize: 50,
+      marginBottom: 3,
     },
   };
 
@@ -45,7 +44,7 @@ const Time = () => {
   };
 
   return (
-    <Paper sx={styles.paper} elevation={10}>
+    <PaperBox>
       <Grid container>
         <Grid item container justifyContent="center">
           <TimeIcon sx={styles.icon} color="primary" />
@@ -70,7 +69,7 @@ const Time = () => {
           <Typography variant="h6">{time?.timezoneName}</Typography>
         </Grid>
       </Grid>
-    </Paper>
+    </PaperBox>
   );
 };
 

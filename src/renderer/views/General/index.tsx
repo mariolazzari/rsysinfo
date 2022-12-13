@@ -2,7 +2,7 @@ import { GeneralArgs } from 'main/si/types';
 import { useEffect } from 'react';
 // Redux
 import { useAppDispatch } from 'renderer/redux/hooks';
-import { getData, onData, onError } from 'renderer/components/General/reducer';
+import { getData, onData, onError } from 'renderer/views/General/reducer';
 // Mui
 import Stack from '@mui/material/Stack';
 // utils

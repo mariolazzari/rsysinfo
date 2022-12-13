@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'general' | 'cpu' | 'battery';
+export type Channels = 'general' | 'system' | 'cpu' | 'battery';
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {

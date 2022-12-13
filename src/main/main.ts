@@ -14,8 +14,9 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import onCpu from './si/cpu';
 import onGeneral from './si/general';
+import onSystem from './si/system';
+import onCpu from './si/cpu';
 import onBattery from './si/battery';
 
 class AppUpdater {
@@ -30,6 +31,7 @@ let mainWindow: BrowserWindow | null = null;
 
 // event subscription
 ipcMain.on('general', onGeneral);
+ipcMain.on('system', onSystem);
 ipcMain.on('cpu', onCpu);
 ipcMain.on('battery', onBattery);
 

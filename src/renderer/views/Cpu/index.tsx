@@ -1,12 +1,7 @@
 import { useEffect } from 'react';
 // Redux
 import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
-import {
-  getCpu,
-  onCpu,
-  setError,
-  selectCpu,
-} from 'renderer/components/Cpu/reducer';
+import { getCpu, onCpu, setError, selectCpu } from 'renderer/views/Cpu/reducer';
 import { CpuArgs } from 'main/si/types';
 // Mui
 import Box from '@mui/material/Box';

@@ -10,11 +10,11 @@ import gray from '@mui/material/colors/grey';
 // components
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from 'renderer/components/AppBar';
-import Cpu from './components/Cpu';
-import General from './components/General';
-import System from './components/System';
-import Memory from './components/Memory';
-import Battery from './components/Battery';
+import Cpu from './views/Cpu';
+import General from './views/General';
+import System from './views/System';
+import Memory from './views/Memory';
+import Battery from './views/Battery';
 
 const routes = [
   {
@@ -54,10 +54,17 @@ function App() {
       <Router>
         <CssBaseline />
         <Grid sx={styles.container} container>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             <AppBar />
           </Grid>
-          <Grid sx={styles.component} item xs={10}>
+          <Grid
+            sx={styles.component}
+            item
+            container
+            justifyContent="center"
+            alignItems="center"
+            xs={11}
+          >
             <Routes>
               {routes.map((route) => (
                 <Route
