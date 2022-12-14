@@ -7,6 +7,8 @@ import { CpuArgs } from 'main/si/types';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typegraphy from '@mui/material/Typography';
+// utils
+import { on } from 'renderer/utils/ipc';
 
 const Cpu = () => {
   // Redux
@@ -17,7 +19,7 @@ const Cpu = () => {
     dispatch(getCpu());
 
     // subcribe cpu event
-    window.api.ipcRenderer.on('cpu', (e: string | ICpu) => {
+    on('cpu', (e) => {
       if (typeof e === 'string') {
         dispatch(setError(e));
       } else {

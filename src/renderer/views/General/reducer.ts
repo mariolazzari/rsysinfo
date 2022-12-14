@@ -38,6 +38,8 @@ const generalSlice = createSlice({
 
 export const selectTime = (state: RootState) => state.general.data?.time;
 export const selectVersion = (state: RootState) => state.general.data?.version;
+export const selectError = (state: RootState) => state.general.error;
+export const selectLoading = (state: RootState) => state.general.loading;
 
 export const { getData, onData, onError } = generalSlice.actions;
 

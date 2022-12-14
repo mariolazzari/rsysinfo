@@ -42,6 +42,8 @@ const cpuSlice = createSlice({
 // selectors
 export const selectCpu = (state: RootState) => state.cpu.data?.cpu;
 export const selectTemps = (state: RootState) => state.cpu.data?.temperatures;
+export const selectError = (state: RootState) => state.cpu.error;
+export const selectLoading = (state: RootState) => state.cpu.loading;
 
 // actions
 export const { getCpu, onCpu, setError } = cpuSlice.actions;

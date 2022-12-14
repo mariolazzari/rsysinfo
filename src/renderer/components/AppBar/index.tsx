@@ -39,7 +39,6 @@ function AppBar() {
       height: '80vh',
       width: 50,
       marginY: '10vh',
-      marginX: 1,
       padding: 1,
     },
   };

@@ -13,6 +13,8 @@ const onSystem = async (e: IpcMainEvent) => {
 
   const data: SystemArgs = { system, uuid, bios, baseboard, chassis };
 
+  console.log(data);
+
   e.reply('system', { ...data });
 };
 
