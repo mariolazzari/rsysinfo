@@ -4,7 +4,6 @@ import { on } from 'renderer/utils/ipc';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Icon from '@mui/material/Icon';
 // Mui icons
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 import Battery90Icon from '@mui/icons-material/Battery90';
