@@ -14,7 +14,7 @@ interface BatteryState {
 const initialState: BatteryState = {
   data: null,
   loading: false,
-  error: 'dio coglione',
+  error: '',
 };
 
 // cpu slice

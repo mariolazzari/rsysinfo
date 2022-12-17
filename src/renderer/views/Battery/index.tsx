@@ -4,6 +4,7 @@ import { on } from 'renderer/utils/ipc';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Icon from '@mui/material/Icon';
 // Mui icons
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 import Battery90Icon from '@mui/icons-material/Battery90';
@@ -33,6 +34,9 @@ const Battery = () => {
     },
     loading: {
       marginBottom: 2,
+    },
+    icon: {
+      fontSize: 50,
     },
   };
 
@@ -73,9 +77,11 @@ const Battery = () => {
   };
 
   useEffect(() => {
+    dispatch(getBattery());
+
     const id = setInterval(() => {
       dispatch(getBattery());
-    }, 1000);
+    }, 60000);
 
     // subcribe cpu event
     on('battery', (e) => {

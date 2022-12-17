@@ -2,7 +2,6 @@
 import { useAppSelector } from 'renderer/redux/hooks';
 import { selectTime } from 'renderer/views/General/reducer';
 // Mui
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 // Mui icons
@@ -50,23 +49,23 @@ const Time = () => {
           <TimeIcon sx={styles.icon} color="primary" />
         </Grid>
         <Grid item container justifyContent="space-between">
-          <Typography variant="h6">Current time</Typography>
-          <Typography variant="h6">{renderTime()}</Typography>
+          <Typography>Current time</Typography>
+          <Typography>{renderTime()}</Typography>
         </Grid>
 
         <Grid item container justifyContent="space-between">
-          <Typography variant="h6">Uptime</Typography>
-          <Typography variant="h6">{renderUptime()}</Typography>
+          <Typography>Uptime</Typography>
+          <Typography>{renderUptime()}</Typography>
         </Grid>
 
         <Grid item container justifyContent="space-between">
-          <Typography variant="h6">Timezone</Typography>
-          <Typography variant="h6">{time?.timezone}</Typography>
+          <Typography>Timezone</Typography>
+          <Typography>{time?.timezone}</Typography>
         </Grid>
 
         <Grid item container justifyContent="space-between">
-          <Typography variant="h6">Timezone name</Typography>
-          <Typography variant="h6">{time?.timezoneName}</Typography>
+          <Typography>Timezone name</Typography>
+          <Typography>{time?.timezoneName}</Typography>
         </Grid>
       </Grid>
     </PaperBox>
