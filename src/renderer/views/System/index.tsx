@@ -5,12 +5,24 @@ import Grid from "@mui/material/Grid";
 import { on } from "renderer/utils/ipc";
 import { SystemArgs } from "main/si/types";
 // redux
-import { useAppDispatch } from "renderer/redux/hooks";
-import { getSystem, setSystem, setError } from "../../redux/slices/system";
+import { useAppDispatch, useAppSelector } from "renderer/redux/hooks";
+import { getSystem, setSystem, setError } from "renderer/redux/slices/system";
+// components
 import Sys from "./Sys";
+import Uuid from "./Uuid";
 
 const System = () => {
   const dispatch = useAppDispatch();
+
+  const renderItems = () => {
+    const items = [<Sys />, <Uuid />];
+
+    return items.map((item, key) => (
+      <Grid key={key} item xs={12} md={6} lg={3}>
+        {item}
+      </Grid>
+    ));
+  };
 
   useEffect(() => {
     dispatch(getSystem());
@@ -28,9 +40,7 @@ const System = () => {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} md={6} lg={3}>
-        <Sys />
-      </Grid>
+      {renderItems()}
     </Grid>
   );
 };

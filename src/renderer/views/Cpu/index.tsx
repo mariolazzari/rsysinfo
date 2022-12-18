@@ -4,9 +4,11 @@ import { useAppSelector, useAppDispatch } from "renderer/redux/hooks";
 import { getCpu, onCpu, setError, selectCpu } from "renderer/redux/slices/cpu";
 import { CpuArgs } from "main/si/types";
 // Mui
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Typegraphy from "@mui/material/Typography";
+// Mui icons
+import CpuIcon from "@mui/icons-material/Psychology";
+// components
+import PaperBox from "renderer/components/PaperBox";
 // utils
 import { on } from "renderer/utils/ipc";
 
@@ -29,14 +31,10 @@ const Cpu = () => {
   }, [dispatch]);
 
   return (
-    <Box>
-      <Paper>
-        <Box>
-          <Typegraphy>{cpu?.brand}</Typegraphy>
-          <Typegraphy>{cpu?.family}</Typegraphy>
-        </Box>
-      </Paper>
-    </Box>
+    <PaperBox icon={<CpuIcon />}>
+      <Typegraphy>{cpu?.brand}</Typegraphy>
+      <Typegraphy>{cpu?.family}</Typegraphy>
+    </PaperBox>
   );
 };
 

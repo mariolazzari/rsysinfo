@@ -9,17 +9,15 @@ import TimeIcon from "@mui/icons-material/AccessTime";
 // component
 import PaperBox from "renderer/components/PaperBox";
 // utils
-import { humanDuration } from "../../utils/dates";
+import { humanDuration, formatDate } from "renderer/utils/dates";
 
 const Time = () => {
   // Redux
   const time = useAppSelector(selectTime);
 
-  // styles
   const styles = {
-    icon: {
-      fontSize: 50,
-      marginBottom: 1,
+    value: {
+      width: 300,
     },
   };
 
@@ -27,12 +25,9 @@ const Time = () => {
     if (!time) {
       return "not available";
     }
-
     const date = new Date(time.current);
-    const dayStr = date.toLocaleDateString();
-    const timeStr = date.toLocaleTimeString();
 
-    return `${dayStr} ${timeStr}`;
+    return formatDate(date);
   };
 
   const renderUptime = (): string => {
@@ -42,32 +37,27 @@ const Time = () => {
     return humanDuration(time.uptime);
   };
 
-  return (
-    <PaperBox>
-      <Grid container>
-        <Grid item container justifyContent="center">
-          <TimeIcon sx={styles.icon} color="primary" />
-        </Grid>
-        <Grid item container justifyContent="space-between">
-          <Typography>Current time</Typography>
-          <Typography>{renderTime()}</Typography>
-        </Grid>
+  const renderItems = () => {
+    const items = [
+      { label: "Current time", value: renderTime() },
+      { label: "Uptime", value: renderUptime() },
+      { label: "Timezone", value: time?.timezone },
+      { label: "Timezone name", value: time?.timezoneName },
+    ];
 
-        <Grid item container justifyContent="space-between">
-          <Typography>Uptime</Typography>
-          <Typography>{renderUptime()}</Typography>
-        </Grid>
-
-        <Grid item container justifyContent="space-between">
-          <Typography>Timezone</Typography>
-          <Typography>{time?.timezone}</Typography>
-        </Grid>
-
-        <Grid item container justifyContent="space-between">
-          <Typography>Timezone name</Typography>
-          <Typography>{time?.timezoneName}</Typography>
-        </Grid>
+    return items.map((item, key) => (
+      <Grid key={key} item container justifyContent="space-between">
+        <Typography>{item.label}</Typography>
+        <Typography sx={styles.value} align="right" noWrap>
+          {item.value}
+        </Typography>
       </Grid>
+    ));
+  };
+
+  return (
+    <PaperBox icon={<TimeIcon />}>
+      <Grid container>{renderItems()}</Grid>
     </PaperBox>
   );
 };

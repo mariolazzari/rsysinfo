@@ -15,10 +15,6 @@ const Versions = () => {
   const version = useAppSelector(selectVersion);
 
   const styles = {
-    icon: {
-      fontSize: 50,
-      marginBottom: 1,
-    },
     listbox: {
       maxHeight: "35vh",
       overflow: "auto",
@@ -49,12 +45,8 @@ const Versions = () => {
   };
 
   return (
-    <PaperBox>
+    <PaperBox icon={<InfoIcon />}>
       <Grid container spacing={2}>
-        <Grid item container justifyContent="center" xs={12}>
-          <InfoIcon sx={styles.icon} color="primary" />
-        </Grid>
-
         <Grid item xs={6}>
           <ListBox items={renderVersion(0, 14)} sx={styles.listbox} />
         </Grid>

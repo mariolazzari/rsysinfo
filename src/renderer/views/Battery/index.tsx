@@ -16,7 +16,6 @@ import Battery20 from "@mui/icons-material/Battery20";
 import BatteryAlert from "@mui/icons-material/BatteryAlert";
 import Battery0 from "@mui/icons-material/Battery0Bar";
 import BatteryUnknown from "@mui/icons-material/BatteryUnknown";
-
 // Redux
 import { BatteryArgs } from "main/si/types";
 import { useAppSelector, useAppDispatch } from "renderer/redux/hooks";
@@ -25,11 +24,14 @@ import {
   setData,
   setError,
   selectBattery,
-} from "../../redux/slices/battery";
+} from "renderer/redux/slices/battery";
+import { selectBatteryInterval } from "renderer/redux/slices/app";
 
 const Battery = () => {
   // Redux
   const { data, error } = useAppSelector(selectBattery);
+  const interval = useAppSelector(selectBatteryInterval);
+
   const dispatch = useAppDispatch();
 
   const styles = {
@@ -91,7 +93,7 @@ const Battery = () => {
 
     const id = setInterval(() => {
       dispatch(getData());
-    }, 60000);
+    }, interval);
 
     // subcribe cpu event
     on("battery", (e) => {

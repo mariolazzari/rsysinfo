@@ -1,7 +1,11 @@
-import { formatDuration, intervalToDuration } from 'date-fns';
+import { formatDuration, intervalToDuration } from "date-fns";
 
-const humanDuration = (time: number) =>
+export const humanDuration = (time: number) =>
   formatDuration(intervalToDuration({ start: 0, end: time * 1000 }));
 
-export { humanDuration };
-export default humanDuration;
+export const formatDate = (date: Date): string => {
+  const dayStr = date.toLocaleDateString();
+  const timeStr = date.toLocaleTimeString();
+
+  return `${dayStr} ${timeStr}`;
+};

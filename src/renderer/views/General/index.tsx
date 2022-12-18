@@ -8,6 +8,8 @@ import {
   setError,
   selectError,
 } from "renderer/redux/slices/general";
+import { selectTimeInterval } from "renderer/redux/slices/app";
+
 // Mui
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -18,6 +20,7 @@ import Versions from "./Versions";
 import Time from "./Time";
 
 const General = () => {
+  const interval = useAppSelector(selectTimeInterval);
   const error = useAppSelector(selectError);
   const dispatch = useAppDispatch();
 
@@ -26,7 +29,7 @@ const General = () => {
 
     const id = setInterval(() => {
       dispatch(getGeneral());
-    }, 60000);
+    }, interval);
 
     on("general", (e) => {
       if (typeof e === "string") {

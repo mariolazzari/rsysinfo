@@ -2,6 +2,7 @@ import { useEffect } from "react";
 // Mui
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 // Mui icons
 import SystemIcon from "@mui/icons-material/SystemUpdate";
 // components
@@ -14,15 +15,8 @@ const Sys = () => {
   const system = useAppSelector(selectSystem);
 
   const styles = {
-    icon: {
-      fontSize: 50,
-      marginBottom: 3,
-    },
     text: {
       maxWidth: 200,
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
     },
   };
 
@@ -38,25 +32,20 @@ const Sys = () => {
     ];
 
     return items.map((item) => (
-      <Grid
-        key={item.label}
-        item
-        container
-        justifyContent="space-between"
-        xs={12}
-      >
-        <Typography>{item.label}</Typography>
-        <Typography sx={styles.text}>{item.value}</Typography>
-      </Grid>
+      <Tooltip key={item.label} title={item.value}>
+        <Grid item container justifyContent="space-between" xs={12}>
+          <Typography>{item.label}</Typography>
+          <Typography sx={styles.text} noWrap>
+            {item.value}
+          </Typography>
+        </Grid>
+      </Tooltip>
     ));
   };
 
   return (
-    <PaperBox>
-      <Grid container justifyContent="center" spacing={1}>
-        <Grid item container justifyContent="center" xs={12}>
-          <SystemIcon sx={styles.icon} color="primary" />
-        </Grid>
+    <PaperBox icon={<SystemIcon />}>
+      <Grid container justifyContent="center">
         {renderItems()}
       </Grid>
     </PaperBox>
