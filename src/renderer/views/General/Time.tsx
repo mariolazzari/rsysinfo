@@ -1,6 +1,6 @@
 // Redux
 import { useAppSelector } from "renderer/redux/hooks";
-import { selectTime } from "renderer/views/General/reducer";
+import { selectTime } from "renderer/redux/slices/general";
 // Mui
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -19,7 +19,7 @@ const Time = () => {
   const styles = {
     icon: {
       fontSize: 50,
-      marginBottom: 3,
+      marginBottom: 1,
     },
   };
 

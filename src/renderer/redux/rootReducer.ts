@@ -1,8 +1,9 @@
-import battery from 'renderer/views/Battery/reducer';
-import cpu from 'renderer/views/Cpu/reducer';
-import general from 'renderer/views/General/reducer';
-import system from 'renderer/views/System/reducer';
+import app from "renderer/redux/slices/app";
+import battery from "renderer/redux/slices/battery";
+import cpu from "renderer/redux/slices/cpu";
+import general from "renderer/redux/slices/general";
+import system from "renderer/redux/slices/system";
 
-const rootReducer = { battery, cpu, general, system };
+const rootReducer = { app, battery, cpu, general, system };
 
 export default rootReducer;

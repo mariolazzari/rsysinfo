@@ -20,7 +20,12 @@ import BatteryUnknown from "@mui/icons-material/BatteryUnknown";
 // Redux
 import { BatteryArgs } from "main/si/types";
 import { useAppSelector, useAppDispatch } from "renderer/redux/hooks";
-import { getBattery, onBattery, onError, selectBattery } from "./reducer";
+import {
+  getData,
+  setData,
+  setError,
+  selectBattery,
+} from "../../redux/slices/battery";
 
 const Battery = () => {
   // Redux
@@ -82,18 +87,19 @@ const Battery = () => {
   };
 
   useEffect(() => {
-    dispatch(getBattery());
+    dispatch(getData());
 
     const id = setInterval(() => {
-      dispatch(getBattery());
+      dispatch(getData());
     }, 60000);
 
     // subcribe cpu event
     on("battery", (e) => {
       if (typeof e === "string") {
-        dispatch(onError(e));
+        dispatch(setError(e));
       } else {
-        dispatch(onBattery(e as BatteryArgs));
+        const data = e as BatteryArgs;
+        dispatch(setData(data));
       }
     });
 

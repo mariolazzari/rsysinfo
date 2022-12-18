@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SystemArgs } from 'main/si/types';
-import { RootState } from 'renderer/redux/store';
-import { sendMessage } from 'renderer/utils/ipc';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SystemArgs } from "main/si/types";
+import { RootState } from "renderer/redux/store";
+import { sendMessage } from "renderer/utils/ipc";
 
 // initial state
 interface SystemState {
@@ -14,20 +14,20 @@ interface SystemState {
 const initialState: SystemState = {
   data: null,
   loading: false,
-  error: '',
+  error: "",
 };
 
 // slice
 const systemSlice = createSlice({
-  name: 'system',
+  name: "system",
   initialState,
   reducers: {
     getSystem: (state) => {
-      state.error = '';
+      state.error = "";
       state.loading = true;
-      sendMessage('system', []);
+      sendMessage("system", []);
     },
-    onSystem: (state, action: PayloadAction<SystemArgs>) => {
+    setSystem: (state, action: PayloadAction<SystemArgs>) => {
       state.data = action.payload;
       state.loading = false;
     },
@@ -50,7 +50,7 @@ export const selectError = (state: RootState) => state.system.error;
 export const selectLoading = (state: RootState) => state.system.loading;
 
 // actions
-export const { getSystem, onSystem, setError } = systemSlice.actions;
+export const { getSystem, setSystem, setError } = systemSlice.actions;
 
 // reducer
 export default systemSlice.reducer;

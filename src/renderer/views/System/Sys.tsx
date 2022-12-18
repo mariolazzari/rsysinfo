@@ -1,23 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 // Mui
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 // Mui icons
-import SystemIcon from '@mui/icons-material/SystemUpdate';
-
-// utils
-import { on } from 'renderer/utils/ipc';
-import { SystemArgs } from 'main/si/types';
+import SystemIcon from "@mui/icons-material/SystemUpdate";
 // components
-import PaperBox from 'renderer/components/PaperBox';
-
+import PaperBox from "renderer/components/PaperBox";
 // redux
-import { useAppDispatch, useAppSelector } from 'renderer/redux/hooks';
-import { getSystem, onSystem, setError, selectSystem } from './reducer';
+import { useAppSelector } from "renderer/redux/hooks";
+import { selectSystem } from "../../redux/slices/system";
 
 const Sys = () => {
   const system = useAppSelector(selectSystem);
-  const dispatch = useAppDispatch();
 
   const styles = {
     icon: {
@@ -26,21 +20,21 @@ const Sys = () => {
     },
     text: {
       maxWidth: 200,
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
     },
   };
 
   const renderItems = () => {
     const items = [
-      { label: 'Manufacturer', value: system?.manufacturer },
-      { label: 'Model', value: system?.model },
-      { label: 'Version', value: system?.version },
-      { label: 'Serial', value: system?.serial },
-      { label: 'UUID', value: system?.uuid },
-      { label: 'SKU', value: system?.sku },
-      { label: 'Virtual?', value: system?.virtual ? 'Yes' : 'No' },
+      { label: "Manufacturer", value: system?.manufacturer },
+      { label: "Model", value: system?.model },
+      { label: "Version", value: system?.version },
+      { label: "Serial", value: system?.serial },
+      { label: "UUID", value: system?.uuid },
+      { label: "SKU", value: system?.sku },
+      { label: "Virtual?", value: system?.virtual ? "Yes" : "No" },
     ];
 
     return items.map((item) => (
@@ -56,19 +50,6 @@ const Sys = () => {
       </Grid>
     ));
   };
-
-  useEffect(() => {
-    dispatch(getSystem());
-
-    // subcribe cpu event
-    on('system', (e) => {
-      if (typeof e === 'string') {
-        dispatch(setError(e));
-      } else {
-        dispatch(onSystem(e as SystemArgs));
-      }
-    });
-  }, [dispatch]);
 
   return (
     <PaperBox>

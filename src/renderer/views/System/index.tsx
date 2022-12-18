@@ -1,41 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 // Mui
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-// Mui icons
-import SystemIcon from '@mui/icons-material/SystemUpdate';
-
+import Grid from "@mui/material/Grid";
 // utils
-import { on } from 'renderer/utils/ipc';
-import { SystemArgs } from 'main/si/types';
-// components
-import PaperBox from 'renderer/components/PaperBox';
-
+import { on } from "renderer/utils/ipc";
+import { SystemArgs } from "main/si/types";
 // redux
-import { useAppDispatch, useAppSelector } from 'renderer/redux/hooks';
-import { getSystem, onSystem, setError, selectSystem } from './reducer';
-import Sys from './Sys';
+import { useAppDispatch } from "renderer/redux/hooks";
+import { getSystem, setSystem, setError } from "../../redux/slices/system";
+import Sys from "./Sys";
 
 const System = () => {
-  const system = useAppSelector(selectSystem);
   const dispatch = useAppDispatch();
-
-  const styles = {
-    icon: {
-      fontSize: 50,
-      marginBottom: 3,
-    },
-  };
 
   useEffect(() => {
     dispatch(getSystem());
 
     // subcribe cpu event
-    on('system', (e) => {
-      if (typeof e === 'string') {
+    on("system", (e) => {
+      if (typeof e === "string") {
         dispatch(setError(e));
       } else {
-        dispatch(onSystem(e as SystemArgs));
+        const data = e as SystemArgs;
+        dispatch(setSystem(data));
       }
     });
   }, [dispatch]);

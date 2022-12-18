@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BatteryArgs } from 'main/si/types';
-import { RootState } from 'renderer/redux/store';
-import { sendMessage } from 'renderer/utils/ipc';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { BatteryArgs } from "main/si/types";
+import { RootState } from "renderer/redux/store";
+import { sendMessage } from "renderer/utils/ipc";
 
 // initial state
 interface BatteryState {
@@ -14,24 +14,24 @@ interface BatteryState {
 const initialState: BatteryState = {
   data: null,
   loading: false,
-  error: '',
+  error: "",
 };
 
 // cpu slice
 const batterySlice = createSlice({
-  name: 'battery',
+  name: "battery",
   initialState,
   reducers: {
-    getBattery: (state) => {
-      state.error = '';
+    getData: (state) => {
+      state.error = "";
       state.loading = true;
-      sendMessage('battery', []);
+      sendMessage("battery", []);
     },
-    onBattery: (state, action: PayloadAction<BatteryArgs>) => {
+    setData: (state, action: PayloadAction<BatteryArgs>) => {
       state.data = action.payload;
       state.loading = false;
     },
-    onError: (state, action: PayloadAction<string>) => {
+    setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
       state.data = null;
@@ -47,7 +47,7 @@ export const selectBattery = (state: RootState) => ({
 });
 
 // actions
-export const { getBattery, onBattery, onError } = batterySlice.actions;
+export const { getData, setData, setError } = batterySlice.actions;
 
 // reducer
 export default batterySlice.reducer;
