@@ -3,6 +3,7 @@ import { useAppSelector } from "renderer/redux/hooks";
 import { selectTime } from "renderer/redux/slices/general";
 // Mui
 import Grid from "@mui/material/Grid";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 // Mui icons
 import TimeIcon from "@mui/icons-material/AccessTime";
@@ -17,6 +18,7 @@ const Time = () => {
 
   const styles = {
     value: {
+      cursor: "pointer",
       width: 300,
     },
   };
@@ -45,13 +47,15 @@ const Time = () => {
       { label: "Timezone name", value: time?.timezoneName },
     ];
 
-    return items.map((item, key) => (
-      <Grid key={key} item container justifyContent="space-between">
-        <Typography>{item.label}</Typography>
-        <Typography sx={styles.value} align="right" noWrap>
-          {item.value}
-        </Typography>
-      </Grid>
+    return items.map(({ label, value }, key) => (
+      <Tooltip key={key} title={`${label}: ${value}`} arrow followCursor>
+        <Grid item container justifyContent="space-between">
+          <Typography>{label}</Typography>
+          <Typography sx={styles.value} align="right" noWrap>
+            {value}
+          </Typography>
+        </Grid>
+      </Tooltip>
     ));
   };
 

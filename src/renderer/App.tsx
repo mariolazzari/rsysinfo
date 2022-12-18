@@ -1,40 +1,40 @@
+import { lazy, Suspense } from "react";
 // navgation
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
 // Mui
-import { ThemeProvider } from '@mui/material/styles';
-import theme from 'renderer/theme';
-import '@fontsource/roboto';
-import Grid from '@mui/material/Grid';
-import gray from '@mui/material/colors/grey';
-
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "renderer/theme";
+import "@fontsource/roboto";
+import Grid from "@mui/material/Grid";
+import gray from "@mui/material/colors/grey";
+import CssBaseline from "@mui/material/CssBaseline";
 // components
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from 'renderer/components/AppBar';
-import Cpu from './views/Cpu';
-import General from './views/General';
-import System from './views/System';
-import Memory from './views/Memory';
-import Battery from './views/Battery';
+const AppBar = lazy(() => import("renderer/components/AppBar"));
+const Cpu = lazy(() => import("renderer/views/Cpu"));
+const General = lazy(() => import("renderer/views/General"));
+const System = lazy(() => import("renderer/views/System"));
+const Memory = lazy(() => import("renderer/views/Memory"));
+const Battery = lazy(() => import("renderer/views/Battery"));
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: <General />,
   },
   {
-    path: '/system',
+    path: "/system",
     component: <System />,
   },
   {
-    path: '/cpu',
+    path: "/cpu",
     component: <Cpu />,
   },
   {
-    path: '/memory',
+    path: "/memory",
     component: <Memory />,
   },
   {
-    path: '/battery',
+    path: "/battery",
     component: <Battery />,
   },
 ];
@@ -65,15 +65,17 @@ function App() {
             alignItems="center"
             xs={11}
           >
-            <Routes>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.component}
-                />
-              ))}
-            </Routes>
+            <Suspense fallback={<p>loading...</p>}>
+              <Routes>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.component}
+                  />
+                ))}
+              </Routes>
+            </Suspense>
           </Grid>
         </Grid>
       </Router>
