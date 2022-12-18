@@ -2,12 +2,13 @@
 import { useAppSelector } from "renderer/redux/hooks";
 import { selectVersion } from "renderer/views/General/reducer";
 // Mui
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 // Mui icons
 import InfoIcon from "@mui/icons-material/Terminal";
 import PresentIcon from "@mui/icons-material/Check";
 import MissingIcon from "@mui/icons-material/Remove";
+// Mui colors
+import grey from "@mui/material/colors/blueGrey";
 // components
 import PaperBox from "renderer/components/PaperBox";
 import ListBox from "renderer/components/ListBox";
@@ -23,6 +24,7 @@ const Versions = () => {
     listbox: {
       maxHeight: "35vh",
       overflow: "auto",
+      backgroundColor: grey[50],
     },
   };
 
@@ -51,7 +53,7 @@ const Versions = () => {
 
   return (
     <PaperBox>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item container justifyContent="center" xs={12}>
           <InfoIcon sx={styles.icon} color="primary" />
         </Grid>
