@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
-import { on } from 'renderer/utils/ipc';
+import { useEffect } from "react";
+import { on } from "renderer/utils/ipc";
 // Mui
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 // Mui icons
-import BatteryFullIcon from '@mui/icons-material/BatteryFull';
-import Battery90Icon from '@mui/icons-material/Battery90';
-import Battery80Icon from '@mui/icons-material/Battery80';
-import Battery60Icon from '@mui/icons-material/Battery60';
-import Battery50Icon from '@mui/icons-material/Battery50';
-import Battery30Icon from '@mui/icons-material/Battery30';
-import Battery20Icon from '@mui/icons-material/Battery20';
-import BatteryAlertIcon from '@mui/icons-material/BatteryAlert';
-import Battery0Icon from '@mui/icons-material/Battery0Bar';
+import BatteryFull from "@mui/icons-material/BatteryFull";
+import BatteryChargingFull from "@mui/icons-material/BatteryChargingFull";
+import Battery90 from "@mui/icons-material/Battery90";
+import Battery80 from "@mui/icons-material/Battery80";
+import Battery60 from "@mui/icons-material/Battery60";
+import Battery50 from "@mui/icons-material/Battery50";
+import Battery30 from "@mui/icons-material/Battery30";
+import Battery20 from "@mui/icons-material/Battery20";
+import BatteryAlert from "@mui/icons-material/BatteryAlert";
+import Battery0 from "@mui/icons-material/Battery0Bar";
+import BatteryUnknown from "@mui/icons-material/BatteryUnknown";
 
 // Redux
-import { BatteryArgs } from 'main/si/types';
-import { useAppSelector, useAppDispatch } from 'renderer/redux/hooks';
-import { getBattery, onBattery, onError, selectBattery } from './reducer';
+import { BatteryArgs } from "main/si/types";
+import { useAppSelector, useAppDispatch } from "renderer/redux/hooks";
+import { getBattery, onBattery, onError, selectBattery } from "./reducer";
 
 const Battery = () => {
   // Redux
@@ -41,38 +43,42 @@ const Battery = () => {
 
   const renderIcon = () => {
     if (!data) {
-      return <Battery0Icon color="error" />;
+      return <BatteryUnknown color="error" />;
     }
 
     if (data?.percent === 100) {
-      return <BatteryFullIcon color="primary" />;
+      return data.isCharging ? (
+        <BatteryChargingFull color="primary" />
+      ) : (
+        <BatteryFull color="primary" />
+      );
     }
 
     if (data?.percent > 90) {
-      return <Battery90Icon color="primary" />;
+      return <Battery90 color="primary" />;
     }
 
     if (data?.percent > 80) {
-      return <Battery80Icon color="primary" />;
+      return <Battery80 color="primary" />;
     }
 
     if (data?.percent > 60) {
-      return <Battery60Icon color="info" />;
+      return <Battery60 color="info" />;
     }
 
     if (data?.percent > 50) {
-      return <Battery50Icon color="info" />;
+      return <Battery50 color="info" />;
     }
 
     if (data?.percent > 30) {
-      return <Battery30Icon color="warning" />;
+      return <Battery30 color="warning" />;
     }
 
     if (data?.percent > 20) {
-      return <Battery20Icon color="warning" />;
+      return <Battery20 color="warning" />;
     }
 
-    return <BatteryAlertIcon color="warning" />;
+    return <BatteryAlert color="warning" />;
   };
 
   useEffect(() => {
@@ -83,8 +89,8 @@ const Battery = () => {
     }, 60000);
 
     // subcribe cpu event
-    on('battery', (e) => {
-      if (typeof e === 'string') {
+    on("battery", (e) => {
+      if (typeof e === "string") {
         dispatch(onError(e));
       } else {
         dispatch(onBattery(e as BatteryArgs));
@@ -110,7 +116,7 @@ const Battery = () => {
 
       <Grid item container justifyContent="space-between">
         <Typography>Battery present?</Typography>
-        <Typography>{data?.hasBattery ? 'Yes' : 'No'}</Typography>
+        <Typography>{data?.hasBattery ? "Yes" : "No"}</Typography>
       </Grid>
 
       <Grid item container justifyContent="space-between">
@@ -120,7 +126,7 @@ const Battery = () => {
 
       <Grid item container justifyContent="space-between">
         <Typography>Charging?</Typography>
-        <Typography>{data?.isCharging ? 'Yes' : 'No'}</Typography>
+        <Typography>{data?.isCharging ? "Yes" : "No"}</Typography>
       </Grid>
 
       <Grid item xs={12}>

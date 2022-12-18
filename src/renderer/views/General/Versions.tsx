@@ -1,16 +1,16 @@
 // Redux
-import { useAppSelector } from 'renderer/redux/hooks';
-import { selectVersion } from 'renderer/views/General/reducer';
+import { useAppSelector } from "renderer/redux/hooks";
+import { selectVersion } from "renderer/views/General/reducer";
 // Mui
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 // Mui icons
-import InfoIcon from '@mui/icons-material/Info';
-import PresentIcon from '@mui/icons-material/Check';
-import MissingIcon from '@mui/icons-material/Remove';
+import InfoIcon from "@mui/icons-material/Terminal";
+import PresentIcon from "@mui/icons-material/Check";
+import MissingIcon from "@mui/icons-material/Remove";
 // components
-import PaperBox from 'renderer/components/PaperBox';
-import ListBox from 'renderer/components/ListBox';
+import PaperBox from "renderer/components/PaperBox";
+import ListBox from "renderer/components/ListBox";
 
 const Versions = () => {
   const version = useAppSelector(selectVersion);
@@ -21,8 +21,8 @@ const Versions = () => {
       marginBottom: 3,
     },
     listbox: {
-      maxHeight: '35vh',
-      overflow: 'auto',
+      maxHeight: "35vh",
+      overflow: "auto",
     },
   };
 
@@ -39,7 +39,12 @@ const Versions = () => {
       .map((v) => ({
         title: v[0],
         subtitle: v[1],
-        icon: v[1] === '' ? <MissingIcon /> : <PresentIcon />,
+        icon:
+          v[1] === "" ? (
+            <MissingIcon color="secondary" />
+          ) : (
+            <PresentIcon color="primary" />
+          ),
       }))
       .slice(from || 0, to);
   };

@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import { SxProps, Theme } from '@mui/material';
+import { ReactNode } from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import { SxProps, Theme } from "@mui/material";
 
 type ListItemProps = {
   title: string;
@@ -19,12 +19,10 @@ type ListBoxProps = {
 
 function ListBox({ items, sx }: ListBoxProps) {
   return (
-    <List sx={sx}>
+    <List sx={sx} dense disablePadding>
       {items.map((item) => (
         <ListItem key={item.title}>
-          <ListItemAvatar>
-            <Avatar>{item.icon}</Avatar>
-          </ListItemAvatar>
+          <ListItemAvatar>{item.icon}</ListItemAvatar>
           <ListItemText primary={item.title} secondary={item.subtitle} />
         </ListItem>
       ))}

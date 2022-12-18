@@ -1,15 +1,15 @@
 // Redux
-import { useAppSelector } from 'renderer/redux/hooks';
-import { selectTime } from 'renderer/views/General/reducer';
+import { useAppSelector } from "renderer/redux/hooks";
+import { selectTime } from "renderer/views/General/reducer";
 // Mui
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 // Mui icons
-import TimeIcon from '@mui/icons-material/HourglassFull';
+import TimeIcon from "@mui/icons-material/AccessTime";
 // component
-import PaperBox from 'renderer/components/PaperBox';
+import PaperBox from "renderer/components/PaperBox";
 // utils
-import { humanDuration } from '../../utils/dates';
+import { humanDuration } from "../../utils/dates";
 
 const Time = () => {
   // Redux
@@ -25,7 +25,7 @@ const Time = () => {
 
   const renderTime = (): string => {
     if (!time) {
-      return 'not available';
+      return "not available";
     }
 
     const date = new Date(time.current);
@@ -37,7 +37,7 @@ const Time = () => {
 
   const renderUptime = (): string => {
     if (!time?.uptime) {
-      return 'not available';
+      return "not available";
     }
     return humanDuration(time.uptime);
   };
