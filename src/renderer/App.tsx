@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import gray from "@mui/material/colors/grey";
 import CssBaseline from "@mui/material/CssBaseline";
 // components
+import BackDrop from "./components/Progress/BackDrop";
 const AppBar = lazy(() => import("renderer/components/AppBar"));
 const Cpu = lazy(() => import("renderer/views/Cpu"));
 const General = lazy(() => import("renderer/views/General"));
@@ -65,7 +66,7 @@ function App() {
             alignItems="center"
             xs={11}
           >
-            <Suspense fallback={<p>loading...</p>}>
+            <Suspense fallback={<BackDrop open />}>
               <Routes>
                 {routes.map((route) => (
                   <Route
