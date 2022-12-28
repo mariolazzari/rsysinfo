@@ -38,15 +38,15 @@ const App = () => {
   };
 
   const speedActions: SpeedAction[] = [
-    { name: "general", icon: <GeneralIcon /> },
-    { name: "cpu", icon: <CpuIcon /> },
-    { name: "system", icon: <SystemIcon /> },
-    { name: "memory", icon: <MemoryIcon /> },
-    { name: "battery", icon: <BatteryIcon /> },
+    { name: "General", icon: <GeneralIcon /> },
+    { name: "Cpu", icon: <CpuIcon /> },
+    { name: "System", icon: <SystemIcon /> },
+    { name: "Nemory", icon: <MemoryIcon /> },
+    { name: "Battery", icon: <BatteryIcon /> },
   ];
 
   const renderSection = () => {
-    switch (section) {
+    switch (section.toLowerCase()) {
       case "system":
         return <System />;
 
