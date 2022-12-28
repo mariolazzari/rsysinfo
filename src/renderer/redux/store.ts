@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import reducer from 'renderer/redux/rootReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "renderer/redux/slices/rootReducer";
 
 // const rootReducer = { cpu, general };
 

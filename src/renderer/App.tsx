@@ -1,87 +1,78 @@
-import { lazy, Suspense } from "react";
-// navgation
-import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useMemo, useCallback, lazy, Suspense } from "react";
 // Mui
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "renderer/theme";
 import "@fontsource/roboto";
-import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 import gray from "@mui/material/colors/grey";
 import CssBaseline from "@mui/material/CssBaseline";
+// Mui icons
+import GeneralIcon from "@mui/icons-material/Info";
+import SystemIcon from "@mui/icons-material/SettingsApplications";
+import CpuIcon from "@mui/icons-material/Computer";
+import MemoryIcon from "@mui/icons-material/Memory";
+import BatteryIcon from "@mui/icons-material/Battery90";
 // components
-import BackDrop from "./components/Progress/BackDrop";
-const AppBar = lazy(() => import("renderer/components/AppBar"));
-const Cpu = lazy(() => import("renderer/views/Cpu"));
+import Speed, { SpeedAction } from "renderer/components/Buttons/Speed";
+import BackDrop from "renderer/components/Progress/BackDrop";
 const General = lazy(() => import("renderer/views/General"));
+const Cpu = lazy(() => import("renderer/views/Cpu"));
 const System = lazy(() => import("renderer/views/System"));
 const Memory = lazy(() => import("renderer/views/Memory"));
 const Battery = lazy(() => import("renderer/views/Battery"));
 
-const routes = [
-  {
-    path: "/",
-    component: <General />,
-  },
-  {
-    path: "/system",
-    component: <System />,
-  },
-  {
-    path: "/cpu",
-    component: <Cpu />,
-  },
-  {
-    path: "/memory",
-    component: <Memory />,
-  },
-  {
-    path: "/battery",
-    component: <Battery />,
-  },
-];
+const App = () => {
+  const [section, setSection] = useState("general");
 
-function App() {
   const styles = {
     container: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       backgroundColor: gray[200],
-    },
-    component: {
       padding: 2,
+      minHeight: "100vh",
+      minWidth: "25vw",
+      overflow: "auto",
     },
+  };
+
+  const speedActions: SpeedAction[] = [
+    { name: "general", icon: <GeneralIcon /> },
+    { name: "cpu", icon: <CpuIcon /> },
+    { name: "system", icon: <SystemIcon /> },
+    { name: "memory", icon: <MemoryIcon /> },
+    { name: "battery", icon: <BatteryIcon /> },
+  ];
+
+  const renderSection = () => {
+    switch (section) {
+      case "system":
+        return <System />;
+
+      case "cpu":
+        return <Cpu />;
+
+      case "memory":
+        return <Memory />;
+
+      case "battery":
+        return <Battery />;
+
+      default:
+        return <General />;
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <CssBaseline />
-        <Grid sx={styles.container} container>
-          <Grid item xs={1}>
-            <AppBar />
-          </Grid>
-          <Grid
-            sx={styles.component}
-            item
-            container
-            justifyContent="center"
-            alignItems="center"
-            xs={11}
-          >
-            <Suspense fallback={<BackDrop open />}>
-              <Routes>
-                {routes.map((route) => (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={route.component}
-                  />
-                ))}
-              </Routes>
-            </Suspense>
-          </Grid>
-        </Grid>
-      </Router>
+      <CssBaseline />
+      <Container sx={styles.container} maxWidth={false} disableGutters>
+        <Suspense fallback={<BackDrop open />}>{renderSection()}</Suspense>
+        <Speed actions={speedActions} onClick={setSection} />
+      </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
